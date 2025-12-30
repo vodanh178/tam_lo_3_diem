@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Tam lo 3 diem</title>
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
@@ -12,32 +11,54 @@ body {
     background: #f2f2f7;
     padding: 10px;
 }
+
 h1 {
     text-align: center;
-}
-.box {
-    background: white;
-    padding: 12px;
-    border-radius: 10px;
-    margin-bottom: 12px;
-}
-label {
-    font-weight: bold;
-}
-input {
-    width: 100%;
-    font-size: 18px;
-    padding: 8px;
-    margin-top: 4px;
     margin-bottom: 10px;
 }
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.point {
+    background: white;
+    padding: 10px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.point h3 {
+    margin: 5px 0 10px;
+}
+
+input {
+    width: 100%;
+    font-size: 20px;
+    padding: 8px;
+    margin-bottom: 8px;
+    text-align: center;
+}
+
 button {
     width: 100%;
-    font-size: 18px;
+    font-size: 20px;
     padding: 10px;
+    margin-top: 10px;
 }
+
+.result-box {
+    background: white;
+    padding: 10px;
+    border-radius: 10px;
+    margin-top: 12px;
+}
+
 .result {
     background: #e5e5ea;
+    font-weight: bold;
 }
 </style>
 </head>
@@ -46,33 +67,39 @@ button {
 
 <h1>TINH TAM LO 3 DIEM</h1>
 
-<div class="box">
-<label>X1</label><input id="x1" type="number" step="any">
-<label>Y1</label><input id="y1" type="number" step="any">
+<div class="grid">
+    <div class="point">
+        <h3>DIEM 1</h3>
+        <input id="x1" type="number" step="any" placeholder="X1">
+        <input id="y1" type="number" step="any" placeholder="Y1">
+    </div>
 
-<label>X2</label><input id="x2" type="number" step="any">
-<label>Y2</label><input id="y2" type="number" step="any">
+    <div class="point">
+        <h3>DIEM 2</h3>
+        <input id="x2" type="number" step="any" placeholder="X2">
+        <input id="y2" type="number" step="any" placeholder="Y2">
+    </div>
 
-<label>X3</label><input id="x3" type="number" step="any">
-<label>Y3</label><input id="y3" type="number" step="any">
+    <div class="point">
+        <h3>DIEM 3</h3>
+        <input id="x3" type="number" step="any" placeholder="X3">
+        <input id="y3" type="number" step="any" placeholder="Y3">
+    </div>
 </div>
 
 <button onclick="tinh()">TINH</button>
 
-<div class="box">
-<label>TAM X</label><input id="cx" class="result" readonly>
-<label>TAM Y</label><input id="cy" class="result" readonly>
-<label>DUONG KINH</label><input id="d" class="result" readonly>
+<div class="result-box">
+    <input id="cx" class="result" readonly placeholder="TAM X">
+    <input id="cy" class="result" readonly placeholder="TAM Y">
+    <input id="d"  class="result" readonly placeholder="DUONG KINH">
 </div>
 
 <script>
 function tinh() {
-    let x1 = Number(document.getElementById("x1").value);
-    let y1 = Number(document.getElementById("y1").value);
-    let x2 = Number(document.getElementById("x2").value);
-    let y2 = Number(document.getElementById("y2").value);
-    let x3 = Number(document.getElementById("x3").value);
-    let y3 = Number(document.getElementById("y3").value);
+    let x1 = Number(x1.value), y1 = Number(y1.value);
+    let x2 = Number(x2.value), y2 = Number(y2.value);
+    let x3 = Number(x3.value), y3 = Number(y3.value);
 
     if ([x1,y1,x2,y2,x3,y3].some(isNaN)) return;
 
@@ -84,13 +111,11 @@ function tinh() {
     let E = A*(x1+x2) + B*(y1+y2);
     let F = C*(x1+x3) + D*(y1+y3);
     let G = 2*(A*(y3-y2) - B*(x3-x2));
-
     if (G === 0) return;
 
     let cx = (D*E - B*F) / G;
     let cy = (A*F - C*E) / G;
-
-    let r = Math.sqrt((cx-x1)*(cx-x1) + (cy-y1)*(cy-y1));
+    let r  = Math.sqrt((cx-x1)**2 + (cy-y1)**2);
 
     document.getElementById("cx").value = cx.toFixed(3);
     document.getElementById("cy").value = cy.toFixed(3);
