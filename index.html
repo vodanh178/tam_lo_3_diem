@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,6 +23,10 @@ h3 {
     text-align: center;
     margin: 5px 0;
 }
+label {
+    font-size: 14px;
+    font-weight: bold;
+}
 input {
     width: 100%;
     font-size: 18px;
@@ -33,7 +37,7 @@ button {
     width: 100%;
     font-size: 18px;
     padding: 8px;
-    margin-top: 10px;
+    margin-top: 8px;
 }
 .result {
     margin-top: 10px;
@@ -64,11 +68,17 @@ button {
 </div>
 
 <button onclick="tinh()">TINH</button>
+<button onclick="xoa()">XOA DU LIEU</button>
 
 <div class="result">
-    <input id="cx" placeholder="Tam X" readonly>
-    <input id="cy" placeholder="Tam Y" readonly>
-    <input id="d"  placeholder="Duong kinh" readonly>
+    <label>TAM X</label>
+    <input id="cx" readonly>
+
+    <label>TAM Y</label>
+    <input id="cy" readonly>
+
+    <label>DUONG KINH</label>
+    <input id="d" readonly>
 </div>
 
 <script>
@@ -113,6 +123,12 @@ function tinh() {
     document.getElementById("cx").value = cx.toFixed(3);
     document.getElementById("cy").value = cy.toFixed(3);
     document.getElementById("d").value  = (2*r).toFixed(3);
+}
+
+function xoa() {
+    ["x1","y1","x2","y2","x3","y3","cx","cy","d"].forEach(id => {
+        document.getElementById(id).value = "";
+    });
 }
 </script>
 
