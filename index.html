@@ -1,31 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tam lo 3 diem</title>
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    margin: 10px;
+}
+.container {
+    display: flex;
+    gap: 6px;
+}
+.col {
+    flex: 1;
+    border: 1px solid #ccc;
+    padding: 8px;
+}
+h3 {
+    text-align: center;
+    margin: 5px 0;
+}
+input {
+    width: 100%;
+    font-size: 18px;
+    margin-bottom: 6px;
+    padding: 4px;
+}
+button {
+    width: 100%;
+    font-size: 18px;
+    padding: 8px;
+    margin-top: 10px;
+}
+.result {
+    margin-top: 10px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <div class="col">
+        <h3>DIEM 1</h3>
+        <input id="x1" type="number" placeholder="X1">
+        <input id="y1" type="number" placeholder="Y1">
+    </div>
+
+    <div class="col">
+        <h3>DIEM 2</h3>
+        <input id="x2" type="number" placeholder="X2">
+        <input id="y2" type="number" placeholder="Y2">
+    </div>
+
+    <div class="col">
+        <h3>DIEM 3</h3>
+        <input id="x3" type="number" placeholder="X3">
+        <input id="y3" type="number" placeholder="Y3">
+    </div>
+</div>
+
+<button onclick="tinh()">TINH</button>
+
+<div class="result">
+    <input id="cx" placeholder="Tam X" readonly>
+    <input id="cy" placeholder="Tam Y" readonly>
+    <input id="d"  placeholder="Duong kinh" readonly>
+</div>
+
 <script>
 function tinh() {
-    const x1v = Number(document.getElementById("x1").value);
-    const y1v = Number(document.getElementById("y1").value);
-    const x2v = Number(document.getElementById("x2").value);
-    const y2v = Number(document.getElementById("y2").value);
-    const x3v = Number(document.getElementById("x3").value);
-    const y3v = Number(document.getElementById("y3").value);
+    const x1 = Number(document.getElementById("x1").value);
+    const y1 = Number(document.getElementById("y1").value);
+    const x2 = Number(document.getElementById("x2").value);
+    const y2 = Number(document.getElementById("y2").value);
+    const x3 = Number(document.getElementById("x3").value);
+    const y3 = Number(document.getElementById("y3").value);
 
-    if ([x1v,y1v,x2v,y2v,x3v,y3v].some(isNaN)) return;
+    if ([x1,y1,x2,y2,x3,y3].some(isNaN)) {
+        alert("Nhap du 3 diem");
+        return;
+    }
 
-    const A = x2v - x1v;
-    const B = y2v - y1v;
-    const C = x3v - x1v;
-    const D = y3v - y1v;
+    const A = x2 - x1;
+    const B = y2 - y1;
+    const C = x3 - x1;
+    const D = y3 - y1;
 
-    const E = A*(x1v+x2v) + B*(y1v+y2v);
-    const F = C*(x1v+x3v) + D*(y1v+y3v);
-    const G = 2*(A*(y3v-y2v) - B*(x3v-x2v));
+    const E = A*(x1+x2) + B*(y1+y2);
+    const F = C*(x1+x3) + D*(y1+y3);
+    const G = 2*(A*(y3-y2) - B*(x3-x2));
 
-    if (G === 0) return;
+    if (G === 0) {
+        alert("3 diem thang hang");
+        return;
+    }
 
     const cx = (D*E - B*F) / G;
     const cy = (A*F - C*E) / G;
-    const r  = Math.sqrt((cx-x1v)**2 + (cy-y1v)**2);
+    const r  = Math.sqrt((cx-x1)**2 + (cy-y1)**2);
 
     document.getElementById("cx").value = cx.toFixed(3);
     document.getElementById("cy").value = cy.toFixed(3);
     document.getElementById("d").value  = (2*r).toFixed(3);
 }
 </script>
+
+</body>
+</html>
