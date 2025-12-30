@@ -73,35 +73,42 @@ button {
 
 <script>
 function tinh() {
-    const x1 = Number(document.getElementById("x1").value);
-    const y1 = Number(document.getElementById("y1").value);
-    const x2 = Number(document.getElementById("x2").value);
-    const y2 = Number(document.getElementById("y2").value);
-    const x3 = Number(document.getElementById("x3").value);
-    const y3 = Number(document.getElementById("y3").value);
+    const x1 = parseFloat(document.getElementById("x1").value);
+    const y1 = parseFloat(document.getElementById("y1").value);
+    const x2 = parseFloat(document.getElementById("x2").value);
+    const y2 = parseFloat(document.getElementById("y2").value);
+    const x3 = parseFloat(document.getElementById("x3").value);
+    const y3 = parseFloat(document.getElementById("y3").value);
 
     if ([x1,y1,x2,y2,x3,y3].some(isNaN)) {
-        alert("Nhap du 3 diem");
+        alert("Nhap day du 3 diem");
         return;
     }
 
-    const A = x2 - x1;
-    const B = y2 - y1;
-    const C = x3 - x1;
-    const D = y3 - y1;
+    const D = 2 * (
+        x1*(y2 - y3) +
+        x2*(y3 - y1) +
+        x3*(y1 - y2)
+    );
 
-    const E = A*(x1+x2) + B*(y1+y2);
-    const F = C*(x1+x3) + D*(y1+y3);
-    const G = 2*(A*(y3-y2) - B*(x3-x2));
-
-    if (G === 0) {
+    if (D === 0) {
         alert("3 diem thang hang");
         return;
     }
 
-    const cx = (D*E - B*F) / G;
-    const cy = (A*F - C*E) / G;
-    const r  = Math.sqrt((cx-x1)**2 + (cy-y1)**2);
+    const cx = (
+        (x1*x1 + y1*y1)*(y2 - y3) +
+        (x2*x2 + y2*y2)*(y3 - y1) +
+        (x3*x3 + y3*y3)*(y1 - y2)
+    ) / D;
+
+    const cy = (
+        (x1*x1 + y1*y1)*(x3 - x2) +
+        (x2*x2 + y2*y2)*(x1 - x3) +
+        (x3*x3 + y3*y3)*(x2 - x1)
+    ) / D;
+
+    const r = Math.sqrt((cx - x1)**2 + (cy - y1)**2);
 
     document.getElementById("cx").value = cx.toFixed(3);
     document.getElementById("cy").value = cy.toFixed(3);
